@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ví dụ 10 - Kiểm tra Palindrome</title>
+</head>
+<body>
+
+    <h2>Javascript Palindrome Checking Function</h2>
+    <p><input type="text" id="inputText" /></p>
+    <p><input type="button" value="Check" onclick="palindrome()" /></p>
+    <p id="outputText"></p>
+
+    <script language="Javascript">
+        function palindrome() {
+            var myString = document.getElementById("inputText").value;
+
+            /* Loại bỏ ký tự đặc biệt, khoảng trắng và chuyển về chữ thường */
+            var removeChar = myString.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+
+            /* Đảo ngược chuỗi để so sánh */
+            var checkPalindrome = removeChar.split('').reverse().join('');
+
+            var outParagraph = document.getElementById("outputText");
+
+            /* Kiểm tra xem có phải Palindrome không */
+            if (removeChar !== "" && removeChar === checkPalindrome) {
+                outParagraph.innerHTML = "<div>" + myString + " is a Palindrome</div>";
+            } else {
+                outParagraph.innerHTML = "<div>" + myString + " is not a Palindrome</div>";
+            }
+        }
+    </script>
+
+</body>
+</html>

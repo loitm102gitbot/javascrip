@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ví dụ 4 - Thành tiền</title>
+    <script language="JavaScript">
+        function Tinhtien() {
+            var sl = parseFloat(document.getElementById("sl").value) || 0;
+            var dg = parseFloat(document.getElementById("dg").value) || 0;
+            document.getElementById("tt").value = sl * dg;
+        }
+    </script>
+</head>
+<body>
+
+    <h3>NHẬP SỐ LƯỢNG VÀ ĐƠN GIÁ</h3>
+    <form method="post">
+        Đơn giá : <input type="text" id="dg" name="dongia" onkeyup="Tinhtien();" /><br /><br />
+        Số lượng : <input type="text" id="sl" name="soluong" onkeyup="Tinhtien();" /><br /><br />
+        Thành tiền : <input type="text" id="tt" name="tien" readonly />
+    </form>
+
+</body>
+</html>

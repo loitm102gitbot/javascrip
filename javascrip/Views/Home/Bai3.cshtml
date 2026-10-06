@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bài 3 - Đồng hồ kỹ thuật số</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .clock-container {
+            background-color: #000000;
+            padding: 30px 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .clock-text {
+            color: #00bfff; /* Màu xanh dương neon giống hình */
+            font-size: 60px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body onload="showTime();">
+
+    <div class="clock-container">
+        <div id="MyClockDisplay" class="clock-text"></div>
+    </div>
+
+    <script type="text/javascript">
+        function showTime() {
+            var date = new Date();
+            var h = date.getHours(); // 0 - 23
+            var m = date.getMinutes(); // 0 - 59
+            var s = date.getSeconds(); // 0 - 59
+            var session = "AM";
+
+            if (h == 0) {
+                h = 12;
+            }
+
+            if (h > 12) {
+                h = h - 12;
+                session = "PM";
+            }
+
+            // Đảm bảo số luôn có 2 chữ số (ví dụ: 04, 09)
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+
+            var time = h + ":" + m + ":" + s + " " + session;
+            document.getElementById("MyClockDisplay").innerText = time;
+            document.getElementById("MyClockDisplay").textContent = time;
+
+            // Cập nhật lại thời gian sau mỗi 1000ms (1 giây)
+            setTimeout(showTime, 1000);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bài 5 - Thanh tiến trình Progress Bar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 500px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Khung chứa thanh tiến trình chung */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            height: 30px;
+            position: relative;
+        }
+
+        /* Thanh tiến trình con */
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            text-align: right;
+            line-height: 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            padding-right: 10px;
+            box-sizing: border-radius;
+            transition: width 0.1s linear;
+        }
+
+        /* Các màu sắc khác nhau giống trong hình */
+        .purple {
+            background-color: #6a1b9a;
+        }
+
+        .teal {
+            background-color: #00695c;
+        }
+
+        .orange {
+            background-color: #ef6c00;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+            button:hover {
+                background-color: #0277bd;
+            }
+    </style>
+</head>
+<body onload="startAllProgress();">
+
+    <div class="container">
+        <h3 style="text-align: center; color: #333; margin-top: 0;">Tiến trình đang chạy</h3>
+
+        <!-- Thanh 1: Tím (chạy đến 60%) -->
+        <div class="progress-container">
+            <div id="bar1" class="progress-bar purple">0%</div>
+        </div>
+
+        <!-- Thanh 2: Xanh ngọc (chạy đến 30%) -->
+        <div class="progress-container">
+            <div id="bar2" class="progress-bar teal">0%</div>
+        </div>
+
+        <!-- Thanh 3: Cam (chạy đến 53%) -->
+        <div class="progress-container">
+            <div id="bar3" class="progress-bar orange">0%</div>
+        </div>
+
+        <div style="text-align: center; margin-top: 10px;">
+            <button onclick="startAllProgress();">Chạy lại tiến trình</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Hàm chạy một thanh tiến trình tới phần trăm mục tiêu
+        function runProgress(elementId, targetPercent, speed) {
+            var elem = document.getElementById(elementId);
+            var width = 0;
+            elem.style.width = '0%';
+            elem.innerText = '0%';
+
+            var id = setInterval(frame, speed);
+
+            function frame() {
+                if (width >= targetPercent) {
+                    clearInterval(id);
+                } else {
+                    width++;
+                    elem.style.width = width + '%';
+                    elem.innerText = width + '%';
+                }
+            }
+        }
+
+        // Kích hoạt tất cả thanh tiến trình theo hình mẫu
+        function startAllProgress() {
+            runProgress("bar1", 60, 20); // Thanh tím -> 60%
+            runProgress("bar2", 30, 25); // Thanh xanh -> 30%[cite: 20]
+            runProgress("bar3", 53, 18); // Thanh cam -> 53%[cite: 20]
+        }
+    </script>
+
+</body>
+</html>

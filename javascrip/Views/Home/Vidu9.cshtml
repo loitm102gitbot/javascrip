@@ -1,0 +1,136 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ví dụ 9 - Stopwatch</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .wrapper {
+            background-color: #fca311;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            width: 380px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 36px;
+            margin-top: 0;
+            letter-spacing: 2px;
+        }
+
+        .timer {
+            color: #ffffff;
+            font-size: 42px;
+            margin: 20px 0 30px;
+            font-weight: bold;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        button {
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+            button:hover {
+                background-color: #ffffff;
+                color: #fca311;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <h1>STOPWATCH</h1>
+        <p class="timer">
+            <span id="seconds">00</span>:<span id="tens">00</span>
+        </p>
+        <div class="btn-group">
+            <button id="button-start">Start</button>
+            <button id="button-stop">Stop</button>
+            <button id="button-reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var seconds = 0;
+            var tens = 0;
+            var appendTens = document.getElementById("tens");
+            var appendSeconds = document.getElementById("seconds");
+            var buttonStart = document.getElementById('button-start');
+            var buttonStop = document.getElementById('button-stop');
+            var buttonReset = document.getElementById('button-reset');
+            var Interval;
+
+            // Bắt đầu đếm
+            buttonStart.onclick = function () {
+                clearInterval(Interval);
+                Interval = setInterval(startTimer, 10);
+            };
+
+            // Tạm dừng
+            buttonStop.onclick = function () {
+                clearInterval(Interval);
+            };
+
+            // Đặt lại về 00:00
+            buttonReset.onclick = function () {
+                clearInterval(Interval);
+                tens = "00";
+                seconds = "00";
+                appendTens.innerHTML = tens;
+                appendSeconds.innerHTML = seconds;
+            };
+
+            // Hàm xử lý tăng thời gian
+            function startTimer() {
+                tens++;
+
+                if (tens <= 9) {
+                    appendTens.innerHTML = "0" + tens;
+                }
+
+                if (tens > 9) {
+                    appendTens.innerHTML = tens;
+                }
+
+                if (tens > 99) {
+                    seconds++;
+                    appendSeconds.innerHTML = seconds <= 9 ? "0" + seconds : seconds;
+                    tens = 0;
+                    appendTens.innerHTML = "00";
+                }
+            }
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ví dụ 8 - Validate Form Đăng ký</title>
+    <style>
+        span {
+            color: red;
+            margin-left: 10px;
+        }
+    </style>
+    <script language="JavaScript">
+        // Lấy giá trị của một input và bỏ khoảng trắng 2 đầu
+        function getValue(id) {
+            return document.getElementById(id).value.trim();
+        }
+
+        // Hiển thị lỗi
+        function showError(key, mess) {
+            document.getElementById(key + '_error').innerHTML = mess;
+        }
+
+        // Tải lại các thông báo lỗi về rỗng
+        function clearErrors() {
+            document.getElementById('username_error').innerHTML = '';
+            document.getElementById('password_error').innerHTML = '';
+            document.getElementById('repassword_error').innerHTML = '';
+        }
+
+        // Kiểm tra lỗi khi nhấn Đăng ký
+        function validate() {
+            clearErrors();
+            var flag = true;
+
+            // 1. Kiểm tra Username
+            var username = getValue('username');
+            if (username == '' || username.length < 5 || !/^[a-zA-Z0-9]+$/.test(username)) {
+                flag = false;
+                showError('username', 'Vui lòng kiểm tra lại Username');
+            }
+
+            // 2. Kiểm tra Password
+            var password = getValue('password');
+            if (password == '' || password.length < 8) {
+                flag = false;
+                showError('password', 'Vui lòng kiểm tra lại Password');
+            }
+
+            // 3. Kiểm tra Repassword
+            var repassword = getValue('repassword');
+            if (password != repassword || repassword == '') {
+                flag = false;
+                showError('repassword', 'Vui lòng kiểm tra nhập lại Password');
+            }
+
+            return flag;
+        }
+    </script>
+</head>
+<body>
+
+    <form onsubmit="return validate();">
+        <table border="1" cellpadding="10" style="border-collapse: collapse;">
+            <tr>
+                <th colspan="2" style="text-align: center;"><h4>Đăng ký</h4></th>
+            </tr>
+            <tr>
+                <td>Tên đăng nhập:</td>
+                <td>
+                    <input type="text" id="username" name="username" value="" />
+                    <span id="username_error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Mật khẩu:</td>
+                <td>
+                    <input type="password" id="password" name="password" value="" />
+                    <span id="password_error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Nhập lại mật khẩu:</td>
+                <td>
+                    <input type="password" id="repassword" name="repassword" value="" />
+                    <span id="repassword_error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" id="btn" name="btn" value="Đăng ký" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>

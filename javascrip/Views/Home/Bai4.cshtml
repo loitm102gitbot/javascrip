@@ -1,0 +1,217 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bài 4 - To-Do List</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .todo-card {
+            width: 380px;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* Khung nhập tiêu đề và nút thêm */
+        .header {
+            display: flex;
+            background-color: #34495e;
+        }
+
+            .header input[type="text"] {
+                flex: 1;
+                padding: 15px;
+                font-size: 16px;
+                border: none;
+                background-color: transparent;
+                color: #ffffff;
+                outline: none;
+            }
+
+                .header input[type="text"]::placeholder {
+                    color: #7f8c8d;
+                }
+
+        .add-btn {
+            width: 60px;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+            .add-btn:hover {
+                background-color: #16a085;
+            }
+
+        /* Danh sách công việc */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            ul li {
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                border-bottom: 1px solid #e0e0e0;
+                font-size: 16px;
+                color: #2c3e50;
+                font-weight: bold;
+                transition: background 0.2s;
+            }
+
+                ul li:last-child {
+                    border-bottom: none;
+                }
+
+                ul li:hover {
+                    background-color: #f9f9f9;
+                }
+
+                /* Checkbox tùy chỉnh */
+                ul li input[type="checkbox"] {
+                    margin-right: 15px;
+                    width: 18px;
+                    height: 18px;
+                    cursor: pointer;
+                }
+
+                /* Lớp hoàn thành công việc: chữ xám và gạch ngang */
+                ul li.completed span {
+                    text-decoration: line-through;
+                    color: #bdc3c7;
+                }
+
+        .task-text {
+            flex: 1;
+        }
+
+        /* Nút xóa công việc */
+        .close-btn {
+            color: #e74c3c;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 5px;
+            display: none;
+        }
+
+        ul li:hover .close-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="todo-card">
+        <div class="header">
+            <input type="text" id="myInput" placeholder="Enter a task" onkeypress="handleKeyPress(event)" />
+            <button class="add-btn" onclick="newElement()">+</button>
+        </div>
+
+        <ul id="myUL">
+            <!-- Dữ liệu mẫu ban đầu -->
+            <li class="completed">
+                <input type="checkbox" checked onclick="toggleTask(this)" />
+                <span class="task-text">Việc 1</span>
+                <span class="close-btn" onclick="deleteTask(this)">&times;</span>
+            </li>
+            <li>
+                <input type="checkbox" onclick="toggleTask(this)" />
+                <span class="task-text">Việc 2</span>
+                <span class="close-btn" onclick="deleteTask(this)">&times;</span>
+            </li>
+            <li>
+                <input type="checkbox" onclick="toggleTask(this)" />
+                <span class="task-text">Việc 3</span>
+                <span class="close-btn" onclick="deleteTask(this)">&times;</span>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        // Thêm công việc mới khi bấm nút +
+        function newElement() {
+            var input = document.getElementById("myInput");
+            var inputValue = input.value.trim();
+
+            if (inputValue === '') {
+                alert("Bạn phải nhập nội dung công việc!");
+                return;
+            }
+
+            var li = document.createElement("li");
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.onclick = function() { toggleTask(this); };
+
+            var spanText = document.createElement("span");
+            spanText.className = "task-text";
+            spanText.textContent = inputValue;
+
+            var closeBtn = document.createElement("span");
+            closeBtn.className = "close-btn";
+            closeBtn.innerHTML = "&times;";
+            closeBtn.onclick = function() { deleteTask(this); };
+
+            li.appendChild(checkbox);
+            li.appendChild(spanText);
+            li.appendChild(closeBtn);
+
+            document.getElementById("myUL").appendChild(li);
+            input.value = ""; // Xóa ô nhập sau khi thêm
+        }
+
+        // Bấm Enter để thêm công việc
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                newElement();
+            }
+        }
+
+        // Bật/Tắt gạch ngang khi tích chọn checkbox
+        function toggleTask(checkbox) {
+            var li = checkbox.parentElement;
+            if (checkbox.checked) {
+                li.classList.add("completed");
+            } else {
+                li.classList.remove("completed");
+            }
+        }
+
+        // Xóa công việc khỏi danh sách
+        function deleteTask(btn) {
+            var li = btn.parentElement;
+            li.remove();
+        }
+    </script>
+
+</body>
+</html>

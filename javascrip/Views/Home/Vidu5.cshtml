@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ví dụ 5 - Validate</title>
+    <script language="javascript">
+        function Respond() {
+            var check = document.getElementsByName("checkbox");
+            if (check[0].checked == true) {
+                document.getElementById('huflit').innerHTML = 'Tôi là sinh viên khoa CNTT, trường Huflit';
+            }
+            if (check[1].checked == true) {
+                document.getElementById('huflit').innerHTML = 'Tôi không phải sinh viên khoa CNTT, trường Huflit';
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h4>Bạn có phải là sinh viên khoa CNTT, trường Huflit không?</h4>
+    <input type="radio" name="checkbox" id="chon" value="" /> Phải
+    <br />
+    <input type="radio" name="checkbox" id="chon" value="" /> Không phải
+    <br />
+    <input type="button" value="Câu trả lời" onclick="Respond();" />
+    <br /><br />
+    <span id="huflit"></span>
+
+</body>
+</html>
